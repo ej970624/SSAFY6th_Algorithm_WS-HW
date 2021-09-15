@@ -3,7 +3,7 @@ package a0915;
 import java.io.*;
 import java.util.*;
 
-public class Solution_d4_3124_최소스패닝트리 {
+public class Solution_d4_3124_최소스패닝트리_Prim {
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

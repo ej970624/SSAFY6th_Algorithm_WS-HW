@@ -3,7 +3,7 @@ package a0916;
 import java.io.*;
 import java.util.*;
 
-public class Main_bj_9205_맥주마시면서걸어가기_서울_12반_김은지 {
+public class Main_bj_9205_맥주마시면서걸어가기_플로이드워셜 {
 	
 	static final int INF = 1000000000;
 	

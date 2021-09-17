@@ -46,9 +46,8 @@ public class Main_bj_9205_맥주마시면서걸어가기_플로이드워셜 {
 					}
 				}
 			}
-			
-			if (dist[0][n+1] != INF) sb.append("happy").append("\n");
-			else sb.append("sad").append("\n");
+
+			sb.append(dist[0][n+1]!=INF?"happy":"sad").append("\n");
 		}
 		System.out.println(sb);
 		br.close();

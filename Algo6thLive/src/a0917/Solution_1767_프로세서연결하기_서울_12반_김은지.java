@@ -3,7 +3,7 @@ package a0917;
 import java.io.*;
 import java.util.*;
 
-public class Solution_1767_프로세서연결하기 {
+public class Solution_1767_프로세서연결하기_서울_12반_김은지 {
 	
 	static int[] dx = {-1, 0, 1, 0};
 	static int[] dy = {0, 1, 0, -1};
@@ -11,14 +11,11 @@ public class Solution_1767_프로세서연결하기 {
 	static int N, cells[][], len, answer, connected;
 	
 	static class Point {
-		int x, y, cnt;
-		List<Integer> dist;
+		int x, y;
 
 		public Point(int x, int y) {
 			this.x = x;
 			this.y = y;
-			dist = new ArrayList<>();
-			cnt = 0;
 		}
 	}
 
@@ -41,16 +38,10 @@ public class Solution_1767_프로세서연결하기 {
 			}
 			
 			len = cores.size();
-			for (int i = 0; i < len; i++) {
-				Point p = cores.get(i);
-				for (int j = 0; j < dx.length; j++) {
-					dfs(p, p.x+dx[j], p.y+dy[j], j);
-				}
-			}
-			
 			answer = Integer.MAX_VALUE;
 			connected = 0;
 			cal(0, 0, copy(cells), 0);
+			if (answer == Integer.MAX_VALUE) answer = 0;
 			
 			sb.append("#").append(tc+1).append(" ").append(answer).append("\n");
 		}
@@ -58,21 +49,7 @@ public class Solution_1767_프로세서연결하기 {
 		br.close();
 	}
 	
-	static void dfs(Point p, int x, int y, int d) {
-		if (cells[x][y] == 1) return;
-		
-		if (x == 0 || x == N-1 || y == 0 || y == N-1) {
-			p.dist.add(d);
-			p.cnt++;
-			return;
-		}
-		
-		int nx = x+dx[d];
-		int ny = y+dy[d];
-		dfs(p, nx, ny, d);
-	}
-	
-	static void cal(int idx, int sum, int[][] temp, int cnt) { 
+	static void cal(int idx, int sum, int[][] temp, int cnt) { //따지고보면 순열
 		if (idx == len) {
 			if (cnt < connected) return;
 			else if (cnt == connected) answer = Math.min(answer, sum);
@@ -81,23 +58,24 @@ public class Solution_1767_프로세서연결하기 {
 			return;
 		}
 		
-		label : for (int i = 0; i < cores.get(idx).cnt; i++) {
+		label : for (int i = 0; i < dx.length; i++) {
 			int[][] t = copy(temp);
-			int nx = cores.get(idx).x + dx[cores.get(idx).dist.get(i)];
-			int ny = cores.get(idx).y + dy[cores.get(idx).dist.get(i)];
-			int n = 0;
+			int nx = cores.get(idx).x + dx[i];
+			int ny = cores.get(idx).y + dy[i];
+			int dist = 0;
+			
 			while (0<=nx && nx<N && 0<=ny & ny<N) {
 				if (temp[nx][ny] == 1) {
 					temp = t;
 					continue label;
 				}
 				temp[nx][ny] = 1;
-				nx += dx[cores.get(idx).dist.get(i)];
-				ny += dy[cores.get(idx).dist.get(i)];
-				n++;
+				nx += dx[i];
+				ny += dy[i];
+				dist++;
 			}
 			
-			cal(idx+1, sum+n, temp, cnt+1);			
+			cal(idx+1, sum+dist, temp, cnt+1);			
 			temp = t;
 		}
 		cal(idx+1, sum, temp, cnt);

@@ -117,8 +117,8 @@ public class Main_bj_17472_다리만들기2 {
 								}
 							}
 							if (flag) {
-								pq[i].add(new Edge(i, k, end-start-1));
-								pq[k].add(new Edge(k, i, end-start-1));
+								pq[i].offer(new Edge(i, k, end-start-1));
+								pq[k].offer(new Edge(k, i, end-start-1));
 							}
 						}
 					}
